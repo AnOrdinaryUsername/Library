@@ -1,0 +1,24 @@
+{
+  "name": "cool-library",
+  "version": "1.0.0",
+  "description": "Store books made by your favorite authors",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnOrdinaryUsername/Library.git"
+  },
+  "author": "AnOrdinaryUsername",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnOrdinaryUsername/Library/issues"
+  },
+  "homepage": "https://github.com/AnOrdinaryUsername/Library#readme",
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2"
+  }
+}
