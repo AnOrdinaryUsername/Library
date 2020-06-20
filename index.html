@@ -44,17 +44,19 @@
         <div class="md-content">
           <h2>Create Book Reading</h2>
           <div>
-            <label for="book-title">Book Title</label>
-            <input id="book-title" required />
-            <label for="author-name">Author Name</label>
-            <input id="author-name" required />
-            <label for="page-count">Page Count</label>
-            <input id="page-count" required />
-            <div class="finish-read">
-              <label for="read-status">Finish reading it?</label>
-              <input type="checkbox" id="read-status" name="read-status" />
-            </div>
-            <button class="add-book">Add Book</button>
+            <form>
+              <label for="book-title">Book Title</label>
+              <input id="book-title" required type="text" />
+              <label for="author-name">Author Name</label>
+              <input id="author-name" required type="text" />
+              <label for="page-count">Page Count</label>
+              <input id="page-count" required type="number" min="10" />
+              <div class="finish-read">
+                <label for="read-status">Finish reading it?</label>
+                <input type="checkbox" id="read-status" name="read-status" />
+              </div>
+              <button class="add-book">Add Book</button>
+            </form>
           </div>
         </div>
       </div>
@@ -64,8 +66,8 @@
         </header>
       </div>
       <div class="content-container">
-        <div class="insert-book">
-          <button class="create-book">
+        <div class="create-wrapper">
+          <button class="create-button">
             <i class="fas fa-plus"></i>
           </button>
         </div>
