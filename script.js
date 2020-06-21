@@ -10,6 +10,10 @@
     this.readStatus = readStatus;
   }
 
+  Book.prototype.changeStatus = function () {
+    (this.readStatus === true) ? this.readStatus = false : this.raedStatus = true;
+  };
+
   const init = () => {
     const showModalDialog = () => {
       document.querySelector('.create-button').addEventListener('click', () => {
@@ -40,22 +44,30 @@
     // The buttons on book boxes created by the user
     const pressBookButtons = () => {
       document.querySelector('.content-container').addEventListener('click', (e) => {
+        const grandParent = e.target.parentNode.parentNode.id;
+        const object = myLibrary[grandParent];
+
         if (e.target && e.target.className === 'green-check') {
           const check = document.querySelector('.green-check');
+
           check.classList.remove('green-check');
           check.textContent = '✖';
           check.classList.add('red-x');
+          // Change readStatus in array to false
+          object.changeStatus();
           return;
         }
         if (e.target && e.target.className === 'red-x') {
           const x = document.querySelector('.red-x');
+          
           x.classList.remove('red-x');
           x.textContent = '✔';
           x.classList.add('green-check');
+          // Change readStatus in array to true
+          object.changeStatus();
           return;
         }
         if (e.target && e.target.className === 'remove-book') {
-          const grandParent = e.target.parentNode.parentNode.id;
           // Remove the visual div on webpage
           document.getElementById(`${grandParent}`).remove();
           // Remove the object in array that was used to create book
