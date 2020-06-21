@@ -104,6 +104,7 @@
       removeButton.textContent = 'Remove';
       removeButton.classList.add('remove-book');
 
+      // Append buttons to div
       buttons.append(readButton, removeButton);
 
       parent.appendChild(newBook);
