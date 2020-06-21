@@ -1,6 +1,8 @@
 (function () {
-  const myLibrary = [];
+  const myLibrary = []; // Store books created by user
+  let counter = 0; // Keep track of myLibrary index
 
+  // Book constructor
   function Book(name, author, pageCount, readStatus) {
     this.name = name;
     this.author = author;
@@ -24,21 +26,88 @@
     };
 
     const inputsAreEmpty = () => {
+      // Destructuring assignment
       const [name, author, pageCount] = document.querySelectorAll('input');
       return (name.value === '' || author.value === '' || pageCount.value === '');
     };
 
     const pageCountisInvalid = () => {
       const pageCount = document.querySelector('#page-count').value;
-      // https://stackoverflow.com/questions/46677774/eslint-unexpected-use-of-isnan
       return (Number.isNaN(parseInt(pageCount, 10))
             || parseInt(pageCount, 10) < 10);
     };
 
-    const createBookVisual = () => {
-      myLibrary.forEach( (element) => {
+    // The buttons on book boxes created by the user
+    const pressBookButtons = () => {
+      document.querySelector('.content-container').addEventListener('click', (e) => {
+        if (e.target && e.target.className === 'green-check') {
+          const check = document.querySelector('.green-check');
+          check.classList.remove('green-check');
+          check.textContent = '✖';
+          check.classList.add('red-x');
+          return;
+        }
+        if (e.target && e.target.className === 'red-x') {
+          const x = document.querySelector('.red-x');
+          x.classList.remove('red-x');
+          x.textContent = '✔';
+          x.classList.add('green-check');
+          return;
+        }
+        if (e.target && e.target.className === 'remove-book') {
+          const grandParent = e.target.parentNode.parentNode.id;
+          // Remove the visual div on webpage
+          document.getElementById(`${grandParent}`).remove();
+          // Remove the object in array that was used to create book
+          myLibrary.splice(grandParent, 1);
+          counter -= 1;
+        }
+      });
+    };
 
+    const createBookVisual = () => {
+      const element = myLibrary[counter];
+      const parent = document.querySelector('.content-container');
+      const newBook = document.createElement('div');
+      newBook.classList.add('new-book');
+      newBook.id = `${counter}`;
+
+      // The title of the book
+      const title = document.createElement('h2');
+      title.textContent = element.name;
+      title.classList.add('book-title');
+
+      // The author's name
+      const author = document.createElement('p');
+      author.textContent = `by ${element.author}`;
+      author.classList.add('book-author');
+
+      // The number of pages in the book
+      const pageCount = document.createElement('span');
+      pageCount.textContent = `${element.pageCount} pages`;
+      pageCount.classList.add('book-pages');
+
+      // Remove book and read status buttons
+      const buttons = document.createElement('div');
+      buttons.classList.add('buttons-container');
+      const readButton = document.createElement('button');
+
+      if (element.readStatus) {
+        readButton.textContent = '✔';
+        readButton.classList.add('green-check');
+      } else if (element.readStatus === false) {
+        readButton.textContent = '✖';
+        readButton.classList.add('red-x');
       }
+
+      const removeButton = document.createElement('button');
+      removeButton.textContent = 'Remove';
+      removeButton.classList.add('remove-book');
+
+      buttons.append(readButton, removeButton);
+
+      parent.appendChild(newBook);
+      newBook.append(title, author, pageCount, buttons);
     };
 
     const addBookToLibrary = () => {
@@ -76,6 +145,7 @@
         myLibrary.push(userBook);
 
         createBookVisual();
+        counter += 1; // Accumulate counter to keep count of created books
         document.querySelector('form').reset();
         document.querySelector('.md-modal').classList.remove('md-show');
       });
@@ -84,6 +154,7 @@
     showModalDialog();
     closeModalDialog();
     addBookToLibrary();
+    pressBookButtons();
   };
 
   init();
