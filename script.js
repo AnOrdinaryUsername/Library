@@ -46,9 +46,9 @@
       document.querySelector('.content-container').addEventListener('click', (e) => {
         const grandParent = e.target.parentNode.parentNode.id;
         const object = myLibrary[grandParent];
-
+        console.log(e.target.className)
         if (e.target && e.target.className === 'green-check') {
-          const check = document.querySelector('.green-check');
+          const check = e.target;
 
           check.classList.remove('green-check');
           check.textContent = '✖';
@@ -58,7 +58,7 @@
           return;
         }
         if (e.target && e.target.className === 'red-x') {
-          const x = document.querySelector('.red-x');
+          const x = e.target;
           
           x.classList.remove('red-x');
           x.textContent = '✔';
